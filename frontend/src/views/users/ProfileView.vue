@@ -119,7 +119,7 @@ export default {
 
         <img :src="qrUrl" alt="QR Code" id="qr-code" />
 
-        <div class="container my-5">
+        <div class="container form-code">
           <div class="p-5 text-center bg-body-tertiary rounded-3">
             <h1 class="text-body-emphasis">Verificar Código de 2FA</h1>
             <input v-model="code" class="form-control my-3" type="text" placeholder="Ingresa el código de la app" />
@@ -145,5 +145,8 @@ export default {
 #qr-code {
   height: 200px;
   width: auto;
+}
+.form-code {
+  max-width: 400px;
 }
 </style>
