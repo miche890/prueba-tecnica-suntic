@@ -1,5 +1,5 @@
-<script lang="ts">
-import { reactive } from 'vue'
+<script>
+import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -11,21 +11,32 @@ export default {
       password: ''
     })
 
+    const errorMessage = ref('')
     const router = useRouter()
 
     const onSubmit = async () => {
-      await fetch('http://localhost:8000/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
+      try {
+        const response = await fetch('http://localhost:8000/api/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
 
-      await router.push('/login')
+        if (!response.ok) {
+          const result = await response.json()
+          throw new Error(result.detail || 'Error en el registro de usuario, Verifique la información ingresada')
+        } else {
+          await router.push('/login')
+        }
+      } catch (e) {
+        errorMessage.value = e.message
+      }
     }
 
     return {
       data,
-      onSubmit
+      onSubmit,
+      errorMessage
     }
   }
 }
@@ -47,6 +58,7 @@ export default {
       <input type="password" v-model="data.password" class="form-control" id="floatingPassword" placeholder="Password">
       <label for="floatingPassword">Contraseña</label>
     </div>
+    <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
     <button class="btn btn-primary w-100 py-2" type="submit">Enviar</button>
   </form>
 </template>

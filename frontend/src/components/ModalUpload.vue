@@ -67,7 +67,7 @@ export default {
           <button type="button" class="btn-close" @click="close" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form @submit.prevent="uploadDocument" class="needs-validation" novalidate>
+          <form @submit.prevent="uploadDocument" class="needs-validation">
             <div class="mb-3">
               <label for="title" class="form-label">Título</label>
               <input type="text" id="title" v-model="title" class="form-control" placeholder="Ingrese el título"

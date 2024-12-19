@@ -66,9 +66,13 @@ export default {
 
 <template>
   <div class="container mt-5">
-    <div>
-      <button v-if="isAuth" class="btn btn-success" @click="openModal">Subir Documento</button>
+    <div v-if="isAuth">
+      <button class="btn btn-success" @click="openModal">Subir Documento</button>
       <ListMyDocuments ref="listMyDocuments" />
+    </div>
+    <div v-if="!isAuth" class="text-center">
+      <img src="../assets/imgs/login.svg" alt="login svg" width="500px">
+      <p>Inicia sesion para continuar</p>
     </div>
     <!-- Modal para subir un archivo -->
     <ModalUpload :isOpen="isModalOpen" @close="closeModal" @save="uploadDocument" @reloadDocuments="reloadDocuments" />

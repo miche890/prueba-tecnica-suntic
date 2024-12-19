@@ -9,6 +9,19 @@
 python -m venv .venv
 ```
 
+### Activar virtual envioroment
+
+#### Windows
+
+```
+.venv/Scripts/activate
+```
+
+#### Linux
+```
+source .venv/bin/activate 
+```
+
 
 ### Install requirements
 ```

@@ -91,52 +91,58 @@ export default {
           <button type="button" class="btn-close" @click="closeModal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label for="document-title">Título</label>
-            <input
-              v-model="title"
-              type="text"
-              class="form-control"
-              id="document-title"
-              placeholder="Ingrese el título del documento"
-            />
-          </div>
-          <div class="form-group">
-            <label for="document-description">Descripción</label>
-            <textarea
-              v-model="description"
-              class="form-control"
-              id="document-description"
-              placeholder="Ingrese una descripción"
-            ></textarea>
-          </div>
-          <div class="form-group">
-            <label for="document-approver">Aprobador</label>
-            <input
-              v-model="approver"
-              type="text"
-              class="form-control"
-              id="document-approver"
-              placeholder="Ingrese el nombre del aprobador"
-            />
-          </div>
-          <div class="form-group">
-            <label for="document-file">Nuevo Archivo (opcional)</label>
-            <input
-              type="file"
-              class="form-control-file"
-              id="document-file"
-              @change="file = $event.target.files[0]"
-            />
-          </div>
+          <form @submit.prevent="saveDocument" class="needs-validation" id="form-edit-document">
+            <div class="form-group">
+              <label for="document-title">Título</label>
+              <input
+                v-model="title"
+                type="text"
+                class="form-control"
+                id="document-title"
+                placeholder="Ingrese el título del documento"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="document-description">Descripción</label>
+              <textarea
+                v-model="description"
+                class="form-control"
+                id="document-description"
+                placeholder="Ingrese una descripción"
+                required
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="document-approver">Aprobador</label>
+              <input
+                v-model="approver"
+                type="email"
+                class="form-control"
+                id="document-approver"
+                placeholder="Ingrese el nombre del aprobador"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="document-file">Nuevo Archivo (opcional)</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="document-file"
+                accept="application/pdf"
+                @change="file = $event.target.files[0]"
+              />
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="closeModal">Cerrar</button>
           <button
-            type="button"
+            type="submit"
             class="btn btn-primary"
-            @click="saveDocument"
             :disabled="isSaving"
+            form="form-edit-document"
           >
             <span v-if="isSaving">Guardando...</span>
             <span v-else>Guardar</span>
